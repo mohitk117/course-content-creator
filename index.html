@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <title>DCA Course: Topics</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        
+    </head>
+
+    <body>
+        <div class="table">
+            <table id="chapters" class="table table-bordered table-hovered table-striped">
+                <thead>
+                    <tr>
+                        <th>S.No.</th>
+                        <th>Course</th>
+                        <th>Chapter</th>
+                        <th>Title</th>
+                        <th>Topic</th>
+                        <th>Timestamp</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+
+        </div>
+       
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> 
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script>
+            $(document).ready(function(){
+                $.post("scripts/db-access.php", {dbAccess: "getTopic"}, function(topics){
+                    $.each(topics, function(i,val){
+                        var topic = "<tr><td>" + (i+1) + "</td><td>" + val.course + "</td><td>" + val.chapter + "</td><td>" + val.title + "</td><td>" + val.topic + "</td><td>" + moment(val.timestamp).fromNow() + "</td>";
+                            //moment(val.timestamp).fromNow(); // 10 years ago
+
+                        $("#chapters tbody").append(topic);
+                    });
+                });
+            });
+            </script>
+    </body>
+</html>
